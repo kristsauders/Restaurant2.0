@@ -1,0 +1,50 @@
+<html>
+<head>
+<!-- This imports the CSS stylesheet -->
+<link rel=StyleSheet href="style.css" type="text/css">
+<!-- This just imports the YUI javascript framework -->
+<script src="yui-min.js"></script>
+</head>
+<body>
+
+<!-- These are the main navigation, title, content and popup divs -->
+<div class="title box" id="title">Jack Rabbit Slim's</div>
+<button class="button back" id="back">Back</button>
+<div class="top-buttons" id="top-buttons">
+    <button class="button" id="remembered">Remembered</button>
+    <button class="button" id="load-new-popup" name="onourway.html">Call Waiter</button>
+</div>
+<br/>
+<div class="menu-bar box" id="menu-bar">
+    <button class="menu-item" id="load-new-page" name="specials.html">Specials</button>
+    <button class="menu-item" id="load-new-page" name="food.html">Food</button>
+    <button class="menu-item" id="load-new-page" name="popular.html">Popular</button>
+    <button class="menu-item" id="load-new-page" name="drinks.html">Drinks</button>
+    <button class="menu-item" id="load-new-page" name="desserts.html">Desserts</button>
+</div>
+<div class="content" id="content"></div>
+<div class="popup box" id="popup"></div>
+<div class="overlay" id="overlay"></div>
+
+<!-- These are extra buttons with IDs we might have to attach to other buttons we make.
+        The names should be pretty self-explanatory.  -->
+<div style="position:absolute;bottom:20px;">
+    <button name="Le Big Mac" id="remember">Remember Le Big Mac</button>
+    <button name="Bacon Cheeseburger" id="remember">Remember Bacon Cheeseburger</button>
+    <button id="hide-menu-bar">Hide Menu Bar</button>
+    <button id="show-menu-bar">Show Menu Bar</button>
+    <button id="hide-me">Hide Me</button>
+    <button id="fade-me">Fade Me</button>
+    <button id="shrink-me">Shrink Me</button>
+    <button id="clear-cache">Clear Cache</button>
+    <button id="get-cache">Get Remembered Items In Cache</button>
+    <button id="load-new-page" name="food.html">Load Food Page</button>
+    <button id="load-new-page" name="specials.html">Load Specials Page</button>
+    <button id="load-new-popup" name="popup.html">Load Other Popup</button>
+</div>
+
+<!-- This imports the main Javascript file that has event listeners for 
+        clicks on all the buttons and divs above. -->
+<script src="main.js"></script>
+</body>
+</html>
