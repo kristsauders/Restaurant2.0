@@ -31,13 +31,13 @@ YUI().use("cache-offline", "node", "transition", "node-load", "get", "gallery-di
         Y.one('#content').load(cache.retrieve("CurrentlyLoadedPage").response);
     } else {
         // If it has not been set, then set to default
-        cache.add("CurrentlyLoadedPage", "specials.html");
+        cache.add("CurrentlyLoadedPage", "specials-royale.html");
         Y.one('#content').load(cache.retrieve("CurrentlyLoadedPage").response);
     }
     
     // Set default LastLoadedPage to default specials page
     if(!cache.retrieve("LastLoadedPage")) {
-        cache.add("LastLoadedPage", "specials.html");
+        cache.add("LastLoadedPage", "specials-royale.html");
     }
 
     // This is how you add entries to the Cache
@@ -121,7 +121,7 @@ YUI().use("cache-offline", "node", "transition", "node-load", "get", "gallery-di
     // Load last page (Back)
     Y.all('#back').on('click', function (e) {
         Y.one('#content').load(cache.retrieve("LastLoadedPage").response);
-        cache.add("LastLoadedPage", "specials.html");
+        cache.add("LastLoadedPage", "specials-royale.html");
         cache.add("CurrentlyLoadedPage", cache.retrieve("LastLoadedPage").response);
     });
     
