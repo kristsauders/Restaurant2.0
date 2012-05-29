@@ -1,5 +1,5 @@
 // I used YUI 3, so you can google their documentation to find other capabilites, otherwise I'll just do it afterwards.
-YUI().use("cache-offline", "node", "transition", "node-load", function(Y) {
+YUI().use("cache-offline", "node", "transition", "node-load", "get", "gallery-dispatcher", function(Y) {
     
     // Set up cache for saving variables
     var cache = new Y.CacheOffline({
@@ -70,24 +70,24 @@ YUI().use("cache-offline", "node", "transition", "node-load", function(Y) {
         alert(cache.retrieve("RememberedItems").response);
     });
     
-    // Function to hide the Menu bar, for example when on a details page
-    function hideMenuBar() {
-        Y.all('#menu-bar').setStyle('visibility', 'hidden');
-    }
-    
-    // Function to show the Menu bar, for example when returning from a details page
-    function showMenuBar() {
-        Y.all('#menu-bar').setStyle('visibility', 'visible');
-    }
-    
     // Hide Menu bar
     Y.all('#hide-menu-bar').on('click', function (e) {
-        hideMenuBar();
+        Y.all('#menu-bar').hide();
     });
     
     // Show Menu bar
-    Y.all('#hide-menu-bar').on('click', function (e) {
-        showMenuBar();
+    Y.all('#show-menu-bar').on('click', function (e) {
+        Y.all('#menu-bar').show();
+    });
+    
+    // Hide Back button
+    Y.all('#hide-back-button').on('click', function (e) {
+        Y.all('#back').hide();
+    });
+    
+    // Show Back button
+    Y.all('#show-back-button').on('click', function (e) {
+        Y.all('#back').show();
     });
     
     // Fade something away
@@ -100,7 +100,7 @@ YUI().use("cache-offline", "node", "transition", "node-load", function(Y) {
 
     // Shrink something to nothing
     Y.all('#shrink-me').on('click', function () {
-        Y.one('#shrink-me').transition({
+        Y.all('#shrink-me').transition({
             duration: 1, // seconds
             width   : 0,
             height  : 0
