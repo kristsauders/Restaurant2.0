@@ -24,7 +24,7 @@ border-radius:15px;
 .menu-bar {
     width:80%;
     text-align:center;
-    margin: 0px auto 0px auto;
+    margin: 3px auto 3px auto;
 }
 .menu-item {
 border:2px solid;
@@ -55,7 +55,7 @@ font-size:2em;
 .back {
     position:absolute;
     top:5px;
-    left:5px;
+    left:10%;
 }
 .close-popup {
     position:absolute;
@@ -65,7 +65,7 @@ font-size:2em;
 .top-buttons {
     position: absolute;
     top: 5px;
-    right: 5px;
+    right: 10%;
 }
 .lit-up {
     background-color: yellow;

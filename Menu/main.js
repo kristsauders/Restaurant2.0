@@ -51,6 +51,9 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
         expires:21600000 // Expire data after 6 hours
     });
     
+    // Clear cache during development only
+    cache.flush();
+    
     // Check if Remembered button should be lit up, by checking for key in cache
     if(cache.retrieve("RememberedButtonLitUp")) {
         if(cache.retrieve("RememberedButtonLitUp").response==true) {
@@ -178,6 +181,13 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
             Y.all('#back').hide();
             Y.all('#menu-bar').show();
         }
+        
+        if(node.getAttribute("class")=="menu-item") {
+            Y.all('#load-new-page').each(function(node) {
+                node.removeClass("lit-up");
+            });
+            node.setAttribute("class", "menu-item lit-up");
+        }
     });
     
     // Load last page (Back)
@@ -215,8 +225,9 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
             document.getElementById('close-popup').onclick = closePopup;
             // If loading the Call Waiter popup, then light up the Call button and 
             // save that to the cache, so it stays lit.
-            if(e.currentTarget.get("name")=="onourway.html") {
-                e.currentTarget.setAttribute("class", "button lit-up");
+            if((e.currentTarget.get("name")=="onourway.html") || (e.currentTarget.get("name")=="onourway2.html")) {
+                var oow = document.getElementsByName('onourway.html')[0];
+                oow.setAttribute("class", "button lit-up");
                 cache.add("CallButtonLitUp", true);
             }
         });
@@ -237,6 +248,7 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
         // Light up remembered button
         var remembered = Y.one('#remembered');
         remembered.setAttribute("class", "button lit-up");
+        e.currentTarget.setAttribute("class", "button lit-up");
         
         // Add key in cache that Remembered button is now lit up
         cache.add("RememberedButtonLitUp", true);
