@@ -72,11 +72,17 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     // Check what page is loaded in main content div, by checking for key in cache, and then load that page
     if(cache.retrieve("CurrentlyLoadedPage")) {
         document.getElementById(cache.retrieve("CurrentlyLoadedPage").response).style.visibility = 'visible';
+        if(cache.retrieve("CurrentlyLoadedPage").response.split("details").length==1) {
+            Y.all('#back').hide();
+        } else {
+            Y.all('#menu-bar').hide();
+        }
     } else {
         // If it has not been set, then set to default
         cache.add("CurrentlyLoadedPage", "specials-royale.html");
         //Y.one('#content').load(cache.retrieve("CurrentlyLoadedPage").response);
         document.getElementById(cache.retrieve("CurrentlyLoadedPage").response).style.visibility = 'visible';
+        Y.all('#back').hide();
     }
     
     // Set default LastLoadedPage to default specials page
@@ -162,6 +168,16 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
         //Y.one('#content').load(node.get("name"), function() {});
         document.getElementById(cache.retrieve("LastLoadedPage").response).style.visibility = 'hidden';
         document.getElementById(node.get("name")).style.visibility = 'visible';
+        
+        // Manipulate menu and back button
+        if(cache.retrieve("CurrentlyLoadedPage").response.split("details").length>1) {
+            Y.all('#menu-bar').hide();
+            Y.all('#back').show();
+        }
+        if(cache.retrieve("CurrentlyLoadedPage").response.split("details").length==1) {
+            Y.all('#back').hide();
+            Y.all('#menu-bar').show();
+        }
     });
     
     // Load last page (Back)
@@ -171,6 +187,16 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
         document.getElementById(cache.retrieve("LastLoadedPage").response).style.visibility = 'visible';
         cache.add("CurrentlyLoadedPage", cache.retrieve("LastLoadedPage").response);
         cache.add("LastLoadedPage", "specials-royale.html");
+        
+        // Manipulate menu and back button
+        if(cache.retrieve("CurrentlyLoadedPage").response.split("details").length>1) {
+            Y.all('#menu-bar').hide();
+            Y.all('#back').show();
+        }
+        if(cache.retrieve("CurrentlyLoadedPage").response.split("details").length==1) {
+            Y.all('#back').hide();
+            Y.all('#menu-bar').show();
+        }
     });
     
     // Close popup
