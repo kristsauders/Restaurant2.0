@@ -1,6 +1,49 @@
 // I used YUI 3, so you can google their documentation to find other capabilites, otherwise I'll just do it afterwards.
-YUI().use("cache-offline", "node", "transition", "node-load", "get", "gallery-dispatcher", function(Y) {
+YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", "gallery-dispatcher", function(Y) {
     
+    function onLoad(id, o) {
+        var data = o.responseText; // Response data.
+        Y.one('body').append('<div style="visibility:hidden;position:absolute;top:120px;left:0px;'
+                                +'width:100%;height:80%;" id="' + uri + '">' + data);
+        Y.one('body').append('</div>');
+    };
+    
+    Y.on('io:complete', onLoad, Y);
+    
+    var uri = "specials-royale.html";
+    var request = Y.io(uri, {sync:true});
+    var uri = "specials.html";
+    var request = Y.io(uri, {sync:true});
+    var uri = "bigmac-details.html";
+    var request = Y.io(uri, {sync:true});
+    var uri = "desserts.html";
+    var request = Y.io(uri, {sync:true});
+    var uri = "drinks.html";
+    var request = Y.io(uri, {sync:true});
+    var uri = "food.html";
+    var request = Y.io(uri, {sync:true});
+    var uri = "fries-details.html";
+    var request = Y.io(uri, {sync:true});
+    var uri = "not-supported.html";
+    var request = Y.io(uri, {sync:true});
+    var uri = "onourway.html";
+    var request = Y.io(uri, {sync:true});
+    var uri = "other.html";
+    var request = Y.io(uri, {sync:true});
+    var uri = "popular.html";
+    var request = Y.io(uri, {sync:true});
+    var uri = "popup.html";
+    var request = Y.io(uri, {sync:true});
+    var uri = "remembered.html";
+    var request = Y.io(uri, {sync:true});
+    var uri = "royale-details.html";
+    var request = Y.io(uri, {sync:true});
+
+    var uri = "specials-sundae.html";
+    var request = Y.io(uri, {sync:true});
+    var uri = "specials-turkey.html";
+    var request = Y.io(uri, {sync:true});
+        
     // Set up cache for saving variables
     var cache = new Y.CacheOffline({
         sandbox:"6-hr-cache", // Pass in a unique identifier
@@ -28,11 +71,12 @@ YUI().use("cache-offline", "node", "transition", "node-load", "get", "gallery-di
     
     // Check what page is loaded in main content div, by checking for key in cache, and then load that page
     if(cache.retrieve("CurrentlyLoadedPage")) {
-        Y.one('#content').load(cache.retrieve("CurrentlyLoadedPage").response);
+        document.getElementById(cache.retrieve("CurrentlyLoadedPage").response).style.visibility = 'visible';
     } else {
         // If it has not been set, then set to default
         cache.add("CurrentlyLoadedPage", "specials-royale.html");
-        Y.one('#content').load(cache.retrieve("CurrentlyLoadedPage").response);
+        //Y.one('#content').load(cache.retrieve("CurrentlyLoadedPage").response);
+        document.getElementById(cache.retrieve("CurrentlyLoadedPage").response).style.visibility = 'visible';
     }
     
     // Set default LastLoadedPage to default specials page
@@ -115,14 +159,18 @@ YUI().use("cache-offline", "node", "transition", "node-load", "get", "gallery-di
         // Set cache key CurrentlyLoadedPage to new page
         cache.add("CurrentlyLoadedPage", node.get("name"));
         // Load page
-        Y.one('#content').load(node.get("name"));
+        //Y.one('#content').load(node.get("name"), function() {});
+        document.getElementById(cache.retrieve("LastLoadedPage").response).style.visibility = 'hidden';
+        document.getElementById(node.get("name")).style.visibility = 'visible';
     });
     
     // Load last page (Back)
     Y.all('#back').on('click', function (e) {
-        Y.one('#content').load(cache.retrieve("LastLoadedPage").response);
-        cache.add("LastLoadedPage", "specials-royale.html");
+        //Y.one('#content').load(cache.retrieve("LastLoadedPage").response);
+        document.getElementById(cache.retrieve("CurrentlyLoadedPage").response).style.visibility = 'hidden';
+        document.getElementById(cache.retrieve("LastLoadedPage").response).style.visibility = 'visible';
         cache.add("CurrentlyLoadedPage", cache.retrieve("LastLoadedPage").response);
+        cache.add("LastLoadedPage", "specials-royale.html");
     });
     
     // Close popup
@@ -150,7 +198,10 @@ YUI().use("cache-offline", "node", "transition", "node-load", "get", "gallery-di
     
     // Load Remembered list
     Y.all('#remembered').on('click', function (e) {
-        Y.one('#content').load('remembered.html');
+        //Y.one('#content').load('remembered.html');
+        document.getElementById(cache.retrieve("CurrentlyLoadedPage").response).style.visibility = 'hidden';
+        document.getElementById(e.currentTarget.get("name")).style.visibility = 'visible';
+        cache.add("LastLoadedPage", cache.retrieve("CurrentlyLoadedPage").response);
         cache.add("CurrentlyLoadedPage", "remembered.html");
     });
     

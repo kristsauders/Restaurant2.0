@@ -1,0 +1,93 @@
+<style type="text/css">
+/* Star rating styles */
+    .star-rating{
+        list-style:none;
+		margin-left:5px !important;
+		padding:0px;
+		width: 125px;
+		height: 25px;
+		position: relative;
+		background: url(alt_star.gif) top left repeat-x;		
+	}
+	.star-rating li{
+		padding:0px;
+		margin:0px;
+		/*\*/
+		float: left;
+		/* */
+	}
+	.star-rating li a{
+		display:block;
+		width:25px;
+		height: 25px;
+		text-decoration: none;
+		text-indent: -9000px;
+		z-index: 20;
+		position: absolute;
+		padding: 0px;
+	}
+	.star-rating li a:hover{
+		background: url(alt_star.gif) left bottom;
+		z-index: 2;
+		left: 0px;
+	}
+	.star-rating a:focus,
+	.star-rating a:active{
+		border:0;	
+		-moz-outline-style: none;
+    	        outline: none; 
+	}
+	.star-rating a.one-star{
+		left: 0px;
+	}
+	.star-rating a.one-star:hover{
+		width:25px;
+	}
+	.star-rating a.two-stars{
+		left:25px;
+	}
+	.star-rating a.two-stars:hover{
+		width: 50px;
+	}
+	.star-rating a.three-stars{
+		left: 50px;
+	}
+	.star-rating a.three-stars:hover{
+		width: 75px;
+	}
+	.star-rating a.four-stars{
+		left: 75px;
+	}	
+	.star-rating a.four-stars:hover{
+		width: 100px;
+	}
+	.star-rating a.five-stars{
+		left: 100px;
+	}
+	.star-rating a.five-stars:hover{
+		width: 125px;
+	}
+	.star-rating li.current-rating{
+		background: url(alt_star.gif) left center;
+		position: absolute;
+		height: 25px;
+		display: block;
+		text-indent: -9000px;
+		z-index: 1;
+	}
+</style>
+
+<br/><br/><br/><br/>
+<ul class='star-rating' id="star-rating">
+    <li class='current-rating' id='current-rating' style="width: 0px"></li>
+	<li><a href="#" onclick="vote(1); return false;" 
+           title='1 star out of 5' class='one-star' id="one-star">1</a></li>
+	<li><a href="#" onclick="vote(2); return false;" 
+           title='2 star out of 5' class='two-stars'>2</a></li>
+	<li><a href="#" onclick="vote(3); return false;" 
+           title='3 star out of 5' class='three-stars'>3</a></li>
+	<li><a href="#" onclick="vote(4); return false;" 
+           title='4 star out of 5' class='four-stars'>4</a></li>
+	<li><a href="#" onclick="vote(5); return false;" 
+           title='5 star out of 5' class='five-stars'>5</a></li>
+</ul>
