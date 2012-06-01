@@ -184,6 +184,51 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
         
         if(node.getAttribute("class")=="menu-item") {
             Y.all('#load-new-page').each(function(node) {
+                if(node.get('parentNode').get('id')=='menu-bar') {
+                    node.removeClass("lit-up");
+                }
+            });
+            node.setAttribute("class", "menu-item lit-up");
+        }
+    });
+    
+    // Load new special
+    Y.all('#load-new-special').on('click', function (e) {
+        var node = e.currentTarget;
+        // Set cache key LastLoadedPage to last page
+        cache.add("LastLoadedPage", cache.retrieve("CurrentlyLoadedPage").response);
+        // Set cache key CurrentlyLoadedPage to new page
+        cache.add("CurrentlyLoadedPage", node.get("name"));
+        // Load page
+        //Y.one('#content').load(node.get("name"), function() {});
+        document.getElementById(cache.retrieve("LastLoadedPage").response).style.visibility = 'hidden';
+        document.getElementById(node.get("name")).style.visibility = 'visible';
+        
+        //Change Specials button to come back to this specific special
+        Y.all('#load-new-page').each(function(node) {
+                if(node.get('parentNode').get('id')=='menu-bar') {
+                    if(node.get("name").split("specials").length==1) {
+                        node.removeClass("lit-up");
+                    }
+                    if(node.get("name").split("specials").length>1) {
+                        node.setAttribute("name", e.currentTarget.get("name"));
+                    }
+                }
+            });
+        
+        // Manipulate menu and back button
+        if(cache.retrieve("CurrentlyLoadedPage").response.split("details").length>1) {
+            Y.all('#menu-bar').hide();
+            Y.all('#back').show();
+        }
+        if(cache.retrieve("CurrentlyLoadedPage").response.split("details").length==1) {
+            Y.all('#back').hide();
+            Y.all('#menu-bar').show();
+        }
+        
+        // Light up clicked menu button, take dim the others
+        if(node.getAttribute("class")=="menu-item") {
+            Y.all('#load-new-page').each(function(node) {
                 node.removeClass("lit-up");
             });
             node.setAttribute("class", "menu-item lit-up");
