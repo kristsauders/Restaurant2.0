@@ -281,10 +281,29 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     // Load Remembered list
     Y.all('#remembered').on('click', function (e) {
         //Y.one('#content').load('remembered.html');
+        Y.all('#menu-bar').show();
+        Y.all('#back').hide();
         document.getElementById(cache.retrieve("CurrentlyLoadedPage").response).style.visibility = 'hidden';
         document.getElementById(e.currentTarget.get("name")).style.visibility = 'visible';
         cache.add("LastLoadedPage", cache.retrieve("CurrentlyLoadedPage").response);
         cache.add("CurrentlyLoadedPage", "remembered.html");
+        var ri = cache.retrieve("RememberedItems");
+        if(ri==null)
+            ri = '';
+        else
+            ri = cache.retrieve("RememberedItems").response;
+        if(ri.split('bigmac').length==1)
+            Y.all('#bigmac-remembered').hide();
+        else
+            Y.all('#bigmac-remembered').show();
+        if(ri.split('royale').length==1)
+            Y.all('#royale-remembered').hide();
+        else
+            Y.all('#royale-remembered').show();
+        if(ri.split('fries').length==1)
+            Y.all('#fries-remembered').hide();
+        else
+            Y.all('#fries-remembered').show();
     });
     
     // Example of clicking a Remember button, which lights up the 
