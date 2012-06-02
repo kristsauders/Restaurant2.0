@@ -1,0 +1,247 @@
+<div style="width:65%;margin: 20px auto 0px auto;font-size:2em;height:95%;overflow:auto;">
+
+<style>
+.food-image {
+    float:left;
+    margin:5px;
+}
+.price-div {
+    float:right;
+    margin:0px;
+}
+
+/* Star rating styles */
+    .star-rating{
+        list-style:none;
+        margin-left:5px !important;
+		padding:0px;
+		width: 125px;
+		height: 25px;
+		position: relative;
+		background: url(alt_star.gif) top left repeat-x;		
+	}
+	.star-rating li{
+		padding:0px;
+		margin:0px;
+		/*\*/
+		float: left;
+		/* */
+	}
+	.star-rating li a{
+		display:block;
+		width:25px;
+		height: 25px;
+		text-decoration: none;
+		text-indent: -9000px;
+		z-index: 20;
+		position: absolute;
+		padding: 0px;
+	}
+	.star-rating li a:hover{
+		background: url(alt_star.gif) left bottom;
+		z-index: 2;
+		left: 0px;
+	}
+	.star-rating a:focus,
+	.star-rating a:active{
+		border:0;	
+		-moz-outline-style: none;
+    	        outline: none; 
+	}
+	.star-rating a.one-star{
+		left: 0px;
+	}
+	.star-rating a.one-star:hover{
+		width:25px;
+	}
+	.star-rating a.two-stars{
+		left:25px;
+	}
+	.star-rating a.two-stars:hover{
+		width: 50px;
+	}
+	.star-rating a.three-stars{
+		left: 50px;
+	}
+	.star-rating a.three-stars:hover{
+		width: 75px;
+	}
+	.star-rating a.four-stars{
+		left: 75px;
+	}	
+	.star-rating a.four-stars:hover{
+		width: 100px;
+	}
+	.star-rating a.five-stars{
+		left: 100px;
+	}
+	.star-rating a.five-stars:hover{
+		width: 125px;
+	}
+	.star-rating li.current-rating{
+		background: url(alt_star.gif) left center;
+		position: absolute;
+		height: 25px;
+		display: block;
+		text-indent: -9000px;
+		z-index: 1;
+	}
+</style>
+
+<b>Food</b>
+<table width="100%" id="bigmac-remembered">
+<tr>
+<td>
+<form>
+<input id="checkbox" type="checkbox"/>
+</form>
+</td>
+<td>
+<img src="bigmac.jpg" width="70px" height="70px" class="food-image" id="load-new-page" name="bigmac-details.html"/>
+</td><td>
+<h3>Le Big Mac</h3>
+<ul class='star-rating' id="star-rating">
+    <li class='current-rating' id='current-rating1' style="width: 0px"></li>
+    <li><a href="#" onclick="rate(1,1); return false;" 
+           title='1 star out of 5' class='one-star' id="one-star">1</a></li>
+	<li><a href="#" onclick="rate(2,1); return false;" 
+           title='2 star out of 5' class='two-stars'>2</a></li>
+	<li><a href="#" onclick="rate(3,1); return false;" 
+           title='3 star out of 5' class='three-stars'>3</a></li>
+	<li><a href="#" onclick="rate(4,1); return false;" 
+           title='4 star out of 5' class='four-stars'>4</a></li>
+	<li><a href="#" onclick="rate(5,1); return false;" 
+           title='5 star out of 5' class='five-stars'>5</a></li>
+</ul>
+<td>
+<div class="price-div">
+    10
+</div>
+</td>
+</tr>
+</table>
+
+<table width="100%" id="royale-remembered">
+<tr>
+<td>
+<form>
+<input id="checkbox" type="checkbox"/>
+</form>
+</td>
+<td>
+<img src="royale.jpg" width="70px" height="70px" class="food-image" id="load-new-page" name="royale-details.html"/>
+</td><td>
+<h3>Royale With Cheese</h3>
+<ul class='star-rating' id="star-rating">
+    <li class='current-rating' id='current-rating2' style="width: 0px"></li>
+    <li><a href="#" onclick="rate(1,2); return false;" 
+           title='1 star out of 5' class='one-star' id="one-star">1</a></li>
+    <li><a href="#" onclick="rate(2,2); return false;" 
+           title='2 star out of 5' class='two-stars'>2</a></li>
+	<li><a href="#" onclick="rate(3,2); return false;" 
+           title='3 star out of 5' class='three-stars'>3</a></li>
+	<li><a href="#" onclick="rate(4,2); return false;" 
+           title='4 star out of 5' class='four-stars'>4</a></li>
+	<li><a href="#" onclick="rate(5,2); return false;" 
+           title='5 star out of 5' class='five-stars'>5</a></li>
+</ul>
+<td>
+<div class="price-div">
+    10
+</div>
+</td>
+</tr>
+</table>
+
+<b>Drinks</b>
+<table width="100%" id="ale-remembered">
+<tr>
+<td>
+<form>
+<input id="checkbox" type="checkbox"/>
+</form>
+</td>
+<td>
+<img src="fries.jpg" width="70px" height="70px" class="food-image" id="load-new-page" name="fries-details.html"/>
+</td><td>
+<h3>Quinton's Dark Ale</h3>
+<ul class='star-rating' id="star-rating">
+    <li class='current-rating' id='current-rating3' style="width: 0px"></li>
+    <li><a href="#" onclick="rate(1,3); return false;" 
+           title='1 star out of 5' class='one-star' id="one-star">1</a></li>
+    <li><a href="#" onclick="rate(2,3); return false;" 
+           title='2 star out of 5' class='two-stars'>2</a></li>
+	<li><a href="#" onclick="rate(3,3); return false;" 
+           title='3 star out of 5' class='three-stars'>3</a></li>
+	<li><a href="#" onclick="rate(4,3); return false;" 
+           title='4 star out of 5' class='four-stars'>4</a></li>
+	<li><a href="#" onclick="rate(5,3); return false;" 
+           title='5 star out of 5' class='five-stars'>5</a></li>
+</ul>
+<td>
+<div class="price-div">
+    10
+</div>
+</td>
+</tr>
+</table>
+
+<table width="100%" id="coffee-remembered">
+<tr>
+<td>
+<form>
+<input id="checkbox" type="checkbox"/>
+</form>
+</td>
+<td>
+<img src="fries.jpg" width="70px" height="70px" class="food-image" id="load-new-page" name="fries-details.html"/>
+</td><td>
+<h3>Black Coffee</h3>
+<ul class='star-rating' id="star-rating">
+    <li class='current-rating' id='current-rating4' style="width: 0px"></li>
+    <li><a href="#" onclick="rate(1,4); return false;" 
+           title='1 star out of 5' class='one-star' id="one-star">1</a></li>
+    <li><a href="#" onclick="rate(2,4); return false;" 
+           title='2 star out of 5' class='two-stars'>2</a></li>
+    <li><a href="#" onclick="rate(3,4); return false;" 
+           title='3 star out of 5' class='three-stars'>3</a></li>
+	<li><a href="#" onclick="rate(4,4); return false;" 
+           title='4 star out of 5' class='four-stars'>4</a></li>
+	<li><a href="#" onclick="rate(5,4); return false;" 
+           title='5 star out of 5' class='five-stars'>5</a></li>
+</ul>
+<td>
+<div class="price-div">
+    10
+</div>
+</td>
+</tr>
+</table>
+
+<hr>
+<div id="totals" style="font-size:0.6em;width:70%;text-align:center;margin: 0px auto 0px auto;">
+    <div style="float:left;">
+        Selected Total
+    </div>
+    <div style="float:right;">
+        20
+    </div><br/>
+    <div style="float:left;">
+        Total
+    </div>
+    <div style="float:right;">
+        40
+    </div>
+</div>
+
+<br/>
+<div id="bottom-buttons" style="width:80%;text-align:center;margin: 0px auto 0px auto;">
+    <button id="load-new-page" name="tips.html" style="float:left;font-size:0.8em;border:2px solid black;">
+    Pay Selected
+    </button>
+    <button id="load-new-popup" name="not-supported.html" style="float:right;font-size:0.8em;border:2px solid black;">
+    Pay All
+    </button>
+</div>
+
+</div>
