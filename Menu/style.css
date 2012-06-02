@@ -1,3 +1,7 @@
+body
+{
+    background-image:url('http://www.cs.washington.edu/education/courses/csep510/12sp/projects/restaurant2.0/images/ipad.png');
+}
 .button
 {
 border:2px solid;
@@ -22,7 +26,7 @@ border-radius:15px;
     font-size:2em;
 }
 .menu-bar {
-    width:90%;
+    width:80%;
     text-align:center;
     margin: 3px auto 3px auto;
 }
@@ -54,8 +58,8 @@ font-size:1em;
 }
 .back {
     position:absolute;
-    top:5px;
-    left:5%;
+    top:75px;
+    left:10%;
 }
 .close-popup {
     position:absolute;
@@ -64,8 +68,8 @@ font-size:1em;
 }
 .top-buttons {
     position: absolute;
-    top: 5px;
-    right: 5%;
+    top: 75px;
+    right: 10%;
 }
 .lit-up {
     background-color: yellow;

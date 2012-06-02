@@ -3,7 +3,7 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     
     function onLoad(id, o) {
         var data = o.responseText; // Response data.
-        Y.one('body').append('<div style="visibility:hidden;position:absolute;top:85px;left:0px;'
+        Y.one('body').append('<div style="visibility:hidden;position:absolute;top:150px;left:0px;'
                                 +'width:100%;height:80%;" id="' + uri + '">' + data);
         Y.one('body').append('</div>');
     };
