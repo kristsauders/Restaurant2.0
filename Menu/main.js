@@ -52,7 +52,7 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     });
     
     // Clear cache during development only
-    //cache.flush();
+    cache.flush();
     
     // Check if Remembered button should be lit up, by checking for key in cache
     if(cache.retrieve("RememberedButtonLitUp")) {
