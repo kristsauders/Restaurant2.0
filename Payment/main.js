@@ -2,6 +2,10 @@
 YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", "gallery-dispatcher", function(Y) {
     
     Y.all('#menu-bar').hide();
+    Y.all('form input').each(function(e) {
+        var n = e.currentTarget;
+        v.hide();
+    });
     function onLoad(id, o) {
         var data = o.responseText; // Response data.
         Y.one('body').append('<div style="visibility:hidden;position:absolute;top:110px;left:0px;'
@@ -26,6 +30,8 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     var uri = "popup.html";
     var request = Y.io(uri, {sync:true});
     var uri = "bill.html";
+    var request = Y.io(uri, {sync:true});
+    var uri = "bill-split.html";
     var request = Y.io(uri, {sync:true});
         
     // Set up cache for saving variables
@@ -242,14 +248,6 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
 //            Y.all('#back').hide();
 //            Y.all('#menu-bar').show();
 //        }
-    });
-    
-    // Split bill
-    Y.all('#split').on('click', function (e) {
-        Y.all('#checkbox').show();
-        Y.all('#split').setAttribute("name", "tips.html");
-        Y.all('#split').innerHTML = 'test';
-        Y.all('#split').setAttribute("id", "load-new-page");
     });
     
     // Close popup
