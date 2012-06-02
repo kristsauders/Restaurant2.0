@@ -274,6 +274,15 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
         });
     });
     
+    // Checkbox clicks
+    Y.all('#checkbox').on('click', function (e) {
+        var node = e.currentTarget;
+        if(node.get('checked'))
+            Y.all('#selected-total').setHTML(parseInt(Y.all('#selected-total').get('innerHTML')) + 10);
+        if(!node.get('checked'))
+            Y.all('#selected-total').setHTML(parseInt(Y.all('#selected-total').get('innerHTML')) - 10);
+    });
+    
     // Load Remembered list
     Y.all('#remembered').on('click', function (e) {
         //Y.one('#content').load('remembered.html');
