@@ -330,4 +330,40 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
         }
         
     });
+    // Forget item
+    Y.all('#forget').on('click', function(e) {
+        var node = e.currentTarget;
+        var RememberedItems = cache.retrieve("RememberedItems");
+        if(RememberedItems!=null) {
+            RememberedItems = RememberedItems.response;
+            if(RememberedItems.split(node.get("name")).length>1) {
+                RememberedItems = RememberedItems.replace(node.get("name"), '').replace(',,', ',');
+                cache.add("RememberedItems", RememberedItems);
+            }
+        }
+        Y.all('#remember').each(function(n) {
+            if(n.get("name")==node.get("name")) {
+                n.setAttribute("class", "button");
+            }
+        });
+        if(RememberedItems.length<4)
+            Y.all('#remembered').setAttribute("class", "button");
+        var ri = cache.retrieve("RememberedItems");
+        if(ri==null)
+            ri = '';
+        else
+            ri = cache.retrieve("RememberedItems").response;
+        if(ri.split('bigmac').length==1)
+            Y.all('#bigmac-remembered').hide();
+        else
+            Y.all('#bigmac-remembered').show();
+        if(ri.split('royale').length==1)
+            Y.all('#royale-remembered').hide();
+        else
+            Y.all('#royale-remembered').show();
+        if(ri.split('fries').length==1)
+            Y.all('#fries-remembered').hide();
+        else
+            Y.all('#fries-remembered').show();
+    });
 });
