@@ -9,13 +9,10 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     });
     
     // Clear cache during development only
-    cache.flush();    
+    // cache.flush();    
 
     Y.all('#menu-bar').hide();
-    Y.all('form input').each(function(e) {
-        var n = e.currentTarget;
-        v.hide();
-    });
+    
     function onLoad(id, o) {
         var data = o.responseText; // Response data.
         Y.one('body').append('<div style="visibility:hidden;position:absolute;top:110px;left:0px;'
@@ -46,111 +43,13 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     var uri = "tips-all.html";
     var request = Y.io(uri, {sync:true});
     
-    // Check if Remembered button should be lit up, by checking for key in cache
-    if(cache.retrieve("RememberedButtonLitUp")) {
-        if(cache.retrieve("RememberedButtonLitUp").response==true) {
-            // Light up remembered button
-            var remembered = Y.one('#remembered');
-            remembered.setAttribute("class", "button lit-up");
-        }
-    }
+    // Set currently loaded page to default
+    cache.add("CurrentlyLoadedPagePayment", "bill.html");
+    document.getElementById(cache.retrieve("CurrentlyLoadedPagePayment").response).style.visibility = 'visible';
+    Y.all('#back').hide();
     
-    // Check if Call button should be lit up, by checking for key in cache
-    if(cache.retrieve("CallButtonLitUp")) {
-        if(cache.retrieve("CallButtonLitUp").response==true) {
-            // Light up Call button
-            var call = document.getElementsByName("onourway.html")[0];
-            call.setAttribute("class", "button lit-up");
-        }
-    }
-    
-    // Check what page is loaded in main content div, by checking for key in cache, and then load that page
-    if(cache.retrieve("CurrentlyLoadedPagePayment")) {
-        document.getElementById(cache.retrieve("CurrentlyLoadedPagePayment").response).style.visibility = 'visible';
-        if(cache.retrieve("CurrentlyLoadedPagePayment").response.split("details").length==1) {
-            Y.all('#back').hide();
-        } else {
-            Y.all('#menu-bar').hide();
-        }
-    } else {
-        // If it has not been set, then set to default
-        cache.add("CurrentlyLoadedPagePayment", "bill.html");
-        //Y.one('#content').load(cache.retrieve("CurrentlyLoadedPagePayment").response);
-        document.getElementById(cache.retrieve("CurrentlyLoadedPagePayment").response).style.visibility = 'visible';
-        Y.all('#back').hide();
-    }
-    
-    // Set default LastLoadedPagePayment to default specials page
-    if(!cache.retrieve("LastLoadedPagePayment")) {
-        cache.add("LastLoadedPagePayment", "bill.html");
-    }
-
-    // This is how you add entries to the Cache
-    cache.add("key1", "value1");
-    cache.add("key2", "value2");
-
-    // This is how you retrieve a cached entry
-    cache.retrieve("key1");
-
-    // Flush the cache
-    Y.all('#clear-cache').on('click', function (e) {
-        cache.flush();
-        alert("Cache cleared");
-    });
-    
-    // Hide something
-    Y.all('#hide-me').on('click', function (e) {
-        e.currentTarget.hide();
-    });
-    
-    // Add content before or after a clicked div
-    Y.all('#modifyable').on('click', function(e) {
-        var node = e.currentTarget;
-        node.prepend('<em>prepended</em> &nbsp;'); // added as firstChild
-        node.append('&nbsp; <em>appended</em>');  // added as lastChild
-    });
-    
-    // Get the cached remembered items
-    Y.all('#get-cache').on('click', function () {
-        alert(cache.retrieve("RememberedItems").response);
-    });
-    
-    // Hide Menu bar
-    Y.all('#hide-menu-bar').on('click', function (e) {
-        Y.all('#menu-bar').hide();
-    });
-    
-    // Show Menu bar
-    Y.all('#show-menu-bar').on('click', function (e) {
-        Y.all('#menu-bar').show();
-    });
-    
-    // Hide Back button
-    Y.all('#hide-back-button').on('click', function (e) {
-        Y.all('#back').hide();
-    });
-    
-    // Show Back button
-    Y.all('#show-back-button').on('click', function (e) {
-        Y.all('#back').show();
-    });
-    
-    // Fade something away
-    Y.all('#fade-me').on('click', function () {
-        Y.one('#fade-me').transition({
-            duration: 1, // seconds
-            opacity : 0
-        });
-    });
-
-    // Shrink something to nothing
-    Y.all('#shrink-me').on('click', function () {
-        Y.all('#shrink-me').transition({
-            duration: 1, // seconds
-            width   : 0,
-            height  : 0
-        });
-    });
+    // Set default LastLoadedPagePayment to default
+    cache.add("LastLoadedPagePayment", "bill.html");
     
     // Load new page
     Y.all('#load-new-page').on('click', function (e) {
@@ -163,16 +62,6 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
         //Y.one('#content').load(node.get("name"), function() {});
         document.getElementById(cache.retrieve("LastLoadedPagePayment").response).style.visibility = 'hidden';
         document.getElementById(node.get("name")).style.visibility = 'visible';
-        
-        // Manipulate menu and back button
-//        if(cache.retrieve("CurrentlyLoadedPagePayment").response.split("details").length>1) {
-//            Y.all('#menu-bar').hide();
-//            Y.all('#back').show();
-//        }
-//        if(cache.retrieve("CurrentlyLoadedPagePayment").response.split("details").length==1) {
-//            Y.all('#back').hide();
-//            Y.all('#menu-bar').show();
-//        }
         
         if(node.getAttribute("class")=="menu-item") {
             Y.all('#load-new-page').each(function(node) {
@@ -241,15 +130,6 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
         
         Y.all('#back').hide();
         
-        // Manipulate menu and back button
-//        if(cache.retrieve("CurrentlyLoadedPagePayment").response.split("details").length>1) {
-//            Y.all('#menu-bar').hide();
-//            Y.all('#back').show();
-//        }
-//        if(cache.retrieve("CurrentlyLoadedPagePayment").response.split("details").length==1) {
-//            Y.all('#back').hide();
-//            Y.all('#menu-bar').show();
-//        }
     });
     
     // Close popup

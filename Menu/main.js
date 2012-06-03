@@ -38,7 +38,6 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     var request = Y.io(uri, {sync:true});
     var uri = "royale-details.html";
     var request = Y.io(uri, {sync:true});
-
     var uri = "specials-sundae.html";
     var request = Y.io(uri, {sync:true});
     var uri = "specials-turkey.html";
@@ -54,111 +53,16 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     // Clear cache during development only
     //cache.flush();
     
-    // Check if Remembered button should be lit up, by checking for key in cache
-    if(cache.retrieve("RememberedButtonLitUp")) {
-        if(cache.retrieve("RememberedButtonLitUp").response==true) {
-            // Light up remembered button
-            var remembered = Y.one('#remembered');
-            remembered.setAttribute("class", "button lit-up");
-        }
-    }
+    // Set currentl loaded page to default
+    cache.add("CurrentlyLoadedPage", "specials-royale.html");
+    document.getElementById(cache.retrieve("CurrentlyLoadedPage").response).style.visibility = 'visible';
+    Y.all('#back').hide();
+      
+    // Reset remembered list to empty on reload
+    cache.add("RememberedItems", "");
     
-    // Check if Call button should be lit up, by checking for key in cache
-    if(cache.retrieve("CallButtonLitUp")) {
-        if(cache.retrieve("CallButtonLitUp").response==true) {
-            // Light up Call button
-            var call = document.getElementsByName("onourway.html")[0];
-            call.setAttribute("class", "button lit-up");
-        }
-    }
-    
-    // Check what page is loaded in main content div, by checking for key in cache, and then load that page
-    if(cache.retrieve("CurrentlyLoadedPage")) {
-        document.getElementById(cache.retrieve("CurrentlyLoadedPage").response).style.visibility = 'visible';
-        if(cache.retrieve("CurrentlyLoadedPage").response.split("details").length==1) {
-            Y.all('#back').hide();
-        } else {
-            Y.all('#menu-bar').hide();
-        }
-    } else {
-        // If it has not been set, then set to default
-        cache.add("CurrentlyLoadedPage", "specials-royale.html");
-        //Y.one('#content').load(cache.retrieve("CurrentlyLoadedPage").response);
-        document.getElementById(cache.retrieve("CurrentlyLoadedPage").response).style.visibility = 'visible';
-        Y.all('#back').hide();
-    }
-    
-    // Set default LastLoadedPage to default specials page
-    if(!cache.retrieve("LastLoadedPage")) {
-        cache.add("LastLoadedPage", "specials-royale.html");
-    }
-
-    // This is how you add entries to the Cache
-    cache.add("key1", "value1");
-    cache.add("key2", "value2");
-
-    // This is how you retrieve a cached entry
-    cache.retrieve("key1");
-
-    // Flush the cache
-    Y.all('#clear-cache').on('click', function (e) {
-        cache.flush();
-        alert("Cache cleared");
-    });
-    
-    // Hide something
-    Y.all('#hide-me').on('click', function (e) {
-        e.currentTarget.hide();
-    });
-    
-    // Add content before or after a clicked div
-    Y.all('#modifyable').on('click', function(e) {
-        var node = e.currentTarget;
-        node.prepend('<em>prepended</em> &nbsp;'); // added as firstChild
-        node.append('&nbsp; <em>appended</em>');  // added as lastChild
-    });
-    
-    // Get the cached remembered items
-    Y.all('#get-cache').on('click', function () {
-        alert(cache.retrieve("RememberedItems").response);
-    });
-    
-    // Hide Menu bar
-    Y.all('#hide-menu-bar').on('click', function (e) {
-        Y.all('#menu-bar').hide();
-    });
-    
-    // Show Menu bar
-    Y.all('#show-menu-bar').on('click', function (e) {
-        Y.all('#menu-bar').show();
-    });
-    
-    // Hide Back button
-    Y.all('#hide-back-button').on('click', function (e) {
-        Y.all('#back').hide();
-    });
-    
-    // Show Back button
-    Y.all('#show-back-button').on('click', function (e) {
-        Y.all('#back').show();
-    });
-    
-    // Fade something away
-    Y.all('#fade-me').on('click', function () {
-        Y.one('#fade-me').transition({
-            duration: 1, // seconds
-            opacity : 0
-        });
-    });
-
-    // Shrink something to nothing
-    Y.all('#shrink-me').on('click', function () {
-        Y.all('#shrink-me').transition({
-            duration: 1, // seconds
-            width   : 0,
-            height  : 0
-        });
-    });
+    // Set default LastLoadedPage to default
+    cache.add("LastLoadedPage", "specials-royale.html");
     
     // Load new page
     Y.all('#load-new-page').on('click', function (e) {

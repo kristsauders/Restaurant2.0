@@ -60,6 +60,10 @@ font-size:1em;
 	font-size:1.25em;
 	width:100%
 }
+.specials-button:hover {
+    box-shadow: 5px 5px 5px gray;
+    font-size:2em;
+}
 .specials-image {
 	float:right;
 	width:50%;
