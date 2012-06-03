@@ -263,7 +263,7 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     
     // Load new popup
     Y.all('#load-new-popup').on('click', function (e) {
-        Y.one('#popup').load(e.currentTarget.get("name"), function() {
+        Y.one('#popup').load(e.currentTarget.getAttribute("name"), function() {
             Y.one('#popup').setStyle('visibility', 'visible');
             Y.one('#overlay').setStyle('visibility', 'visible');
             Y.one('#close-popup').setStyle('visibility', 'visible');
