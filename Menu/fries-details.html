@@ -8,6 +8,7 @@
 .details-right {
     float:right;
     column-count:1;
+    height:70%;
     text-align:left;
     font-size:.25em;
     width:60%;
@@ -16,10 +17,10 @@
 .details-left {
     float:left;
     column-count:1;
+    height:70%;
     text-align:left;
     font-size:.25em;
     width:40%;
-    overflow-x: hidden;
 }
 </style>
 
@@ -47,6 +48,20 @@
 <div class="details-right">
 
 <h1 class="details-header">French Fries</h1>
+
+<ul class='star-rating' id="star-rating" style="left:0px;">
+    <li class='current-rating' id='current-rating' style="width: 120px"></li>
+    <li><a href="#"
+           title='1 star out of 5' class='one-star' id="one-star">1</a></li>
+    <li><a href="#"
+           title='2 star out of 5' class='two-stars'>2</a></li>
+    <li><a href="#"
+           title='3 star out of 5' class='three-stars'>3</a></li>
+	<li><a href="#"  
+           title='4 star out of 5' class='four-stars'>4</a></li>
+	<li><a href="#"
+           title='5 star out of 5' class='five-stars'>5</a></li>
+</ul>
 
 <p> Golden glowing salty fries. Every man's dream. The fresh-cut fries are exactly what you need to compliment anything you ordered. Who doesn't
 love fries? They may be called "French", but they're an American tradition. You know you want this potatoey goodness.</p>
