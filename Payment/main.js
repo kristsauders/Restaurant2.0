@@ -283,6 +283,26 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
             Y.all('#selected-total').setHTML(parseInt(Y.all('#selected-total').get('innerHTML')) - 10);
     });
     
+    // Plus button
+    Y.all('#plus').on('click', function (e) {
+        var node = e.currentTarget;
+        Y.all('#tip-percent').setHTML(parseInt(Y.all('#tip-percent').get('innerHTML')) + 1);
+        var tip = (parseInt(Y.all('#subtotal').get('innerHTML'))*parseInt(Y.all('#tip-percent').get('innerHTML')))/100;
+        var total = tip + parseInt(Y.all('#subtotal').get('innerHTML'));
+        Y.all('#tip').setHTML(tip);
+        Y.all('#total').setHTML(total);
+    });
+    
+    // Minus button
+    Y.all('#minus').on('click', function (e) {
+        var node = e.currentTarget;
+        Y.all('#tip-percent').setHTML(parseInt(Y.all('#tip-percent').get('innerHTML')) - 1);
+        var tip = (parseInt(Y.all('#subtotal').get('innerHTML'))*parseInt(Y.all('#tip-percent').get('innerHTML')))/100;
+        var total = tip + parseInt(Y.all('#subtotal').get('innerHTML'));
+        Y.all('#tip').setHTML(tip);
+        Y.all('#total').setHTML(total);
+    });
+    
     // Load Remembered list
     Y.all('#remembered').on('click', function (e) {
         //Y.one('#content').load('remembered.html');
