@@ -1,6 +1,16 @@
 // I used YUI 3, so you can google their documentation to find other capabilites, otherwise I'll just do it afterwards.
 YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", "gallery-dispatcher", function(Y) {
     
+    // Set up cache for saving variables
+    var cache = new Y.CacheOffline({
+        sandbox:"6-hr-cache", // Pass in a unique identifier
+        uniqueKeys: true,
+        expires:21600000 // Expire data after 6 hours
+    });
+    
+    // Clear cache during development only
+    cache.flush();    
+
     Y.all('#menu-bar').hide();
     Y.all('form input').each(function(e) {
         var n = e.currentTarget;
@@ -35,16 +45,6 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     var request = Y.io(uri, {sync:true});
     var uri = "tips-all.html";
     var request = Y.io(uri, {sync:true});
-        
-    // Set up cache for saving variables
-    var cache = new Y.CacheOffline({
-        sandbox:"6-hr-cache", // Pass in a unique identifier
-        uniqueKeys: true,
-        expires:21600000 // Expire data after 6 hours
-    });
-    
-    // Clear cache during development only
-    cache.flush();
     
     // Check if Remembered button should be lit up, by checking for key in cache
     if(cache.retrieve("RememberedButtonLitUp")) {
@@ -65,24 +65,24 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     }
     
     // Check what page is loaded in main content div, by checking for key in cache, and then load that page
-    if(cache.retrieve("CurrentlyLoadedPage")) {
-        document.getElementById(cache.retrieve("CurrentlyLoadedPage").response).style.visibility = 'visible';
-        if(cache.retrieve("CurrentlyLoadedPage").response.split("details").length==1) {
+    if(cache.retrieve("CurrentlyLoadedPagePayment")) {
+        document.getElementById(cache.retrieve("CurrentlyLoadedPagePayment").response).style.visibility = 'visible';
+        if(cache.retrieve("CurrentlyLoadedPagePayment").response.split("details").length==1) {
             Y.all('#back').hide();
         } else {
             Y.all('#menu-bar').hide();
         }
     } else {
         // If it has not been set, then set to default
-        cache.add("CurrentlyLoadedPage", "bill.html");
-        //Y.one('#content').load(cache.retrieve("CurrentlyLoadedPage").response);
-        document.getElementById(cache.retrieve("CurrentlyLoadedPage").response).style.visibility = 'visible';
+        cache.add("CurrentlyLoadedPagePayment", "bill.html");
+        //Y.one('#content').load(cache.retrieve("CurrentlyLoadedPagePayment").response);
+        document.getElementById(cache.retrieve("CurrentlyLoadedPagePayment").response).style.visibility = 'visible';
         Y.all('#back').hide();
     }
     
-    // Set default LastLoadedPage to default specials page
-    if(!cache.retrieve("LastLoadedPage")) {
-        cache.add("LastLoadedPage", "bill.html");
+    // Set default LastLoadedPagePayment to default specials page
+    if(!cache.retrieve("LastLoadedPagePayment")) {
+        cache.add("LastLoadedPagePayment", "bill.html");
     }
 
     // This is how you add entries to the Cache
@@ -155,21 +155,21 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     // Load new page
     Y.all('#load-new-page').on('click', function (e) {
         var node = e.currentTarget;
-        // Set cache key LastLoadedPage to last page
-        cache.add("LastLoadedPage", cache.retrieve("CurrentlyLoadedPage").response);
-        // Set cache key CurrentlyLoadedPage to new page
-        cache.add("CurrentlyLoadedPage", node.get("name"));
+        // Set cache key LastLoadedPagePayment to last page
+        cache.add("LastLoadedPagePayment", cache.retrieve("CurrentlyLoadedPagePayment").response);
+        // Set cache key CurrentlyLoadedPagePayment to new page
+        cache.add("CurrentlyLoadedPagePayment", node.get("name"));
         // Load page
         //Y.one('#content').load(node.get("name"), function() {});
-        document.getElementById(cache.retrieve("LastLoadedPage").response).style.visibility = 'hidden';
+        document.getElementById(cache.retrieve("LastLoadedPagePayment").response).style.visibility = 'hidden';
         document.getElementById(node.get("name")).style.visibility = 'visible';
         
         // Manipulate menu and back button
-//        if(cache.retrieve("CurrentlyLoadedPage").response.split("details").length>1) {
+//        if(cache.retrieve("CurrentlyLoadedPagePayment").response.split("details").length>1) {
 //            Y.all('#menu-bar').hide();
 //            Y.all('#back').show();
 //        }
-//        if(cache.retrieve("CurrentlyLoadedPage").response.split("details").length==1) {
+//        if(cache.retrieve("CurrentlyLoadedPagePayment").response.split("details").length==1) {
 //            Y.all('#back').hide();
 //            Y.all('#menu-bar').show();
 //        }
@@ -191,13 +191,13 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     // Load new special
     Y.all('#load-new-special').on('click', function (e) {
         var node = e.currentTarget;
-        // Set cache key LastLoadedPage to last page
-        cache.add("LastLoadedPage", cache.retrieve("CurrentlyLoadedPage").response);
-        // Set cache key CurrentlyLoadedPage to new page
-        cache.add("CurrentlyLoadedPage", node.get("name"));
+        // Set cache key LastLoadedPagePayment to last page
+        cache.add("LastLoadedPagePayment", cache.retrieve("CurrentlyLoadedPagePayment").response);
+        // Set cache key CurrentlyLoadedPagePayment to new page
+        cache.add("CurrentlyLoadedPagePayment", node.get("name"));
         // Load page
         //Y.one('#content').load(node.get("name"), function() {});
-        document.getElementById(cache.retrieve("LastLoadedPage").response).style.visibility = 'hidden';
+        document.getElementById(cache.retrieve("LastLoadedPagePayment").response).style.visibility = 'hidden';
         document.getElementById(node.get("name")).style.visibility = 'visible';
         
         //Change Specials button to come back to this specific special
@@ -213,11 +213,11 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
             });
         
         // Manipulate menu and back button
-        if(cache.retrieve("CurrentlyLoadedPage").response.split("details").length>1) {
+        if(cache.retrieve("CurrentlyLoadedPagePayment").response.split("details").length>1) {
             Y.all('#menu-bar').hide();
             Y.all('#back').show();
         }
-        if(cache.retrieve("CurrentlyLoadedPage").response.split("details").length==1) {
+        if(cache.retrieve("CurrentlyLoadedPagePayment").response.split("details").length==1) {
             Y.all('#back').hide();
             Y.all('#menu-bar').show();
         }
@@ -233,20 +233,20 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     
     // Load last page (Back)
     Y.all('#back').on('click', function (e) {
-        //Y.one('#content').load(cache.retrieve("LastLoadedPage").response);
-        document.getElementById(cache.retrieve("CurrentlyLoadedPage").response).style.visibility = 'hidden';
-        document.getElementById(cache.retrieve("LastLoadedPage").response).style.visibility = 'visible';
-        cache.add("CurrentlyLoadedPage", cache.retrieve("LastLoadedPage").response);
-        cache.add("LastLoadedPage", "specials-royale.html");
+        //Y.one('#content').load(cache.retrieve("LastLoadedPagePayment").response);
+        document.getElementById(cache.retrieve("CurrentlyLoadedPagePayment").response).style.visibility = 'hidden';
+        document.getElementById(cache.retrieve("LastLoadedPagePayment").response).style.visibility = 'visible';
+        cache.add("CurrentlyLoadedPagePayment", cache.retrieve("LastLoadedPagePayment").response);
+        cache.add("LastLoadedPagePayment", "specials-royale.html");
         
         Y.all('#back').hide();
         
         // Manipulate menu and back button
-//        if(cache.retrieve("CurrentlyLoadedPage").response.split("details").length>1) {
+//        if(cache.retrieve("CurrentlyLoadedPagePayment").response.split("details").length>1) {
 //            Y.all('#menu-bar').hide();
 //            Y.all('#back').show();
 //        }
-//        if(cache.retrieve("CurrentlyLoadedPage").response.split("details").length==1) {
+//        if(cache.retrieve("CurrentlyLoadedPagePayment").response.split("details").length==1) {
 //            Y.all('#back').hide();
 //            Y.all('#menu-bar').show();
 //        }
@@ -276,10 +276,10 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
             // Timer to close swipe popup
             if(e.currentTarget.get("name")=="please-swipe.html") {
             setTimeout(function() {
-                cache.add("LastLoadedPage", cache.retrieve("CurrentlyLoadedPage").response);
-                // Set cache key CurrentlyLoadedPage to new page
-                cache.add("CurrentlyLoadedPage", "thank-you.html");
-                document.getElementById(cache.retrieve("LastLoadedPage").response).style.visibility = 'hidden';
+                cache.add("LastLoadedPagePayment", cache.retrieve("CurrentlyLoadedPagePayment").response);
+                // Set cache key CurrentlyLoadedPagePayment to new page
+                cache.add("CurrentlyLoadedPagePayment", "thank-you.html");
+                document.getElementById(cache.retrieve("LastLoadedPagePayment").response).style.visibility = 'hidden';
                 document.getElementById("thank-you.html").style.visibility = 'visible';
                 closePopup();
             }, 5000);
@@ -353,10 +353,10 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
         //Y.one('#content').load('remembered.html');
         Y.all('#menu-bar').show();
         Y.all('#back').hide();
-        document.getElementById(cache.retrieve("CurrentlyLoadedPage").response).style.visibility = 'hidden';
+        document.getElementById(cache.retrieve("CurrentlyLoadedPagePayment").response).style.visibility = 'hidden';
         document.getElementById(e.currentTarget.get("name")).style.visibility = 'visible';
-        cache.add("LastLoadedPage", cache.retrieve("CurrentlyLoadedPage").response);
-        cache.add("CurrentlyLoadedPage", "remembered.html");
+        cache.add("LastLoadedPagePayment", cache.retrieve("CurrentlyLoadedPagePayment").response);
+        cache.add("CurrentlyLoadedPagePayment", "remembered.html");
         var ri = cache.retrieve("RememberedItems");
         if(ri==null)
             ri = '';
