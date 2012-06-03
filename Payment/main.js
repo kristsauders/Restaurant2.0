@@ -183,9 +183,7 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
         
         if(node.get("name")=="tips.html") {
             Y.all('#back').show();
-        }
-        
-        closePopup();
+        }        
     });
     
     // Load new special
@@ -273,6 +271,17 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
                 oow.setAttribute("class", "button lit-up");
                 cache.add("CallButtonLitUp", true);
             }
+            // Timer to close swipe popup
+            if(e.currentTarget.get("name")=="please-swipe.html") {
+            setTimeout(function() {
+                cache.add("LastLoadedPage", cache.retrieve("CurrentlyLoadedPage").response);
+                // Set cache key CurrentlyLoadedPage to new page
+                cache.add("CurrentlyLoadedPage", "thank-you.html");
+                document.getElementById(cache.retrieve("LastLoadedPage").response).style.visibility = 'hidden';
+                document.getElementById("thank-you.html").style.visibility = 'visible';
+                closePopup();
+            }, 5000);
+        }
         });
     });
     
