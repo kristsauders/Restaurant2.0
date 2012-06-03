@@ -62,7 +62,6 @@ font-size:1em;
 }
 .specials-button:hover {
     box-shadow: 5px 5px 5px gray;
-    font-size:2em;
 }
 .specials-image {
 	float:right;
