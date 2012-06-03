@@ -152,6 +152,7 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     
     // Load new page
     Y.all('#load-new-page').on('click', function (e) {
+        alert('load');
         var node = e.currentTarget;
         // Set cache key LastLoadedPage to last page
         cache.add("LastLoadedPage", cache.retrieve("CurrentlyLoadedPage").response);
@@ -184,6 +185,8 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
         if(node.get("name")=="tips.html") {
             Y.all('#back').show();
         }
+        
+        closePopup();
     });
     
     // Load new special
@@ -289,8 +292,8 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
         Y.all('#tip-percent').setHTML(parseInt(Y.all('#tip-percent').get('innerHTML')) + 1);
         var tip = (parseInt(Y.all('#subtotal').get('innerHTML'))*parseInt(Y.all('#tip-percent').get('innerHTML')))/100;
         var total = tip + parseInt(Y.all('#subtotal').get('innerHTML'));
-        Y.all('#tip').setHTML(tip);
-        Y.all('#total').setHTML(total);
+        Y.all('#tip').setHTML(tip.toFixed(2));
+        Y.all('#total').setHTML(total.toFixed(2));
     });
     
     // Minus button
@@ -299,8 +302,8 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
         Y.all('#tip-percent').setHTML(parseInt(Y.all('#tip-percent').get('innerHTML')) - 1);
         var tip = (parseInt(Y.all('#subtotal').get('innerHTML'))*parseInt(Y.all('#tip-percent').get('innerHTML')))/100;
         var total = tip + parseInt(Y.all('#subtotal').get('innerHTML'));
-        Y.all('#tip').setHTML(tip);
-        Y.all('#total').setHTML(total);
+        Y.all('#tip').setHTML(tip.toFixed(2));
+        Y.all('#total').setHTML(total.toFixed(2));
     });
     
     // Load Remembered list
