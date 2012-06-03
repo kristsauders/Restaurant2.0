@@ -33,6 +33,8 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     var request = Y.io(uri, {sync:true});
     var uri = "bill-split.html";
     var request = Y.io(uri, {sync:true});
+    var uri = "tips-all.html";
+    var request = Y.io(uri, {sync:true});
         
     // Set up cache for saving variables
     var cache = new Y.CacheOffline({
@@ -324,6 +326,26 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
         var total = tip + parseInt(Y.all('#subtotal').get('innerHTML'));
         Y.all('#tip').setHTML(tip.toFixed(2));
         Y.all('#total').setHTML(total.toFixed(2));
+    });
+    
+    // Plus button on pay all
+    Y.all('#plus-all').on('click', function (e) {
+        var node = e.currentTarget;
+        Y.all('#tip-percent-all').setHTML(parseInt(Y.all('#tip-percent-all').get('innerHTML')) + 1);
+        var tip = (parseInt(Y.all('#subtotal-all').get('innerHTML'))*parseInt(Y.all('#tip-percent-all').get('innerHTML')))/100;
+        var total = tip + parseInt(Y.all('#subtotal-all').get('innerHTML'));
+        Y.all('#tip-all').setHTML(tip.toFixed(2));
+        Y.all('#total-all').setHTML(total.toFixed(2));
+    });
+    
+    // Minus button on pay all
+    Y.all('#minus-all').on('click', function (e) {
+        var node = e.currentTarget;
+        Y.all('#tip-percent-all').setHTML(parseInt(Y.all('#tip-percent-all').get('innerHTML')) - 1);
+        var tip = (parseInt(Y.all('#subtotal-all').get('innerHTML'))*parseInt(Y.all('#tip-percent-all').get('innerHTML')))/100;
+        var total = tip + parseInt(Y.all('#subtotal-all').get('innerHTML'));
+        Y.all('#tip-all').setHTML(tip.toFixed(2));
+        Y.all('#total-all').setHTML(total.toFixed(2));
     });
     
     // Load Remembered list
