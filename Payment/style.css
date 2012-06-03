@@ -2,6 +2,7 @@ body
 {
     background-image:url('http://www.cs.washington.edu/education/courses/csep510/12sp/projects/restaurant2.0/images/ipad1.png');
     background-repeat:no-repeat;
+    font-family:arial, helvetica; 
 }
 .button
 {

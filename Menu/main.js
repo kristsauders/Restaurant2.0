@@ -166,11 +166,11 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
         // Set cache key LastLoadedPage to last page
         cache.add("LastLoadedPage", cache.retrieve("CurrentlyLoadedPage").response);
         // Set cache key CurrentlyLoadedPage to new page
-        cache.add("CurrentlyLoadedPage", node.get("name"));
+        cache.add("CurrentlyLoadedPage", node.getAttribute("name"));
         // Load page
         //Y.one('#content').load(node.get("name"), function() {});
         document.getElementById(cache.retrieve("LastLoadedPage").response).style.visibility = 'hidden';
-        document.getElementById(node.get("name")).style.visibility = 'visible';
+        document.getElementById(node.getAttribute("name")).style.visibility = 'visible';
         
         // Manipulate menu and back button
         if(cache.retrieve("CurrentlyLoadedPage").response.split("details").length>1) {
@@ -198,11 +198,11 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
         // Set cache key LastLoadedPage to last page
         cache.add("LastLoadedPage", cache.retrieve("CurrentlyLoadedPage").response);
         // Set cache key CurrentlyLoadedPage to new page
-        cache.add("CurrentlyLoadedPage", node.get("name"));
+        cache.add("CurrentlyLoadedPage", node.getAttribute("name"));
         // Load page
         //Y.one('#content').load(node.get("name"), function() {});
         document.getElementById(cache.retrieve("LastLoadedPage").response).style.visibility = 'hidden';
-        document.getElementById(node.get("name")).style.visibility = 'visible';
+        document.getElementById(node.getAttribute("name")).style.visibility = 'visible';
         
         //Change Specials button to come back to this specific special
         Y.all('#load-new-page').each(function(node) {
@@ -292,6 +292,18 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
             ri = '';
         else
             ri = cache.retrieve("RememberedItems").response;
+        if(ri.split('bigmac').length==1)
+            Y.all('#bigmac-remembered').hide();
+        else
+            Y.all('#bigmac-remembered').show();
+        if(ri.split('royale').length==1)
+            Y.all('#royale-remembered').hide();
+        else
+            Y.all('#royale-remembered').show();
+        if(ri.split('fries').length==1)
+            Y.all('#fries-remembered').hide();
+        else
+            Y.all('#fries-remembered').show();
         if(ri.split('bigmac').length==1)
             Y.all('#bigmac-remembered').hide();
         else
