@@ -288,10 +288,22 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     // Checkbox clicks
     Y.all('#checkbox').on('click', function (e) {
         var node = e.currentTarget;
-        if(node.get('checked'))
+        if(node.get('checked')) {
             Y.all('#selected-total').setHTML(parseInt(Y.all('#selected-total').get('innerHTML')) + 10);
-        if(!node.get('checked'))
+            Y.all('#subtotal').setHTML(parseInt(Y.all('#selected-total').get('innerHTML')));
+            var tip = (parseInt(Y.all('#subtotal').get('innerHTML'))*parseInt(Y.all('#tip-percent').get('innerHTML')))/100;
+            var total = tip + parseInt(Y.all('#subtotal').get('innerHTML'));
+            Y.all('#tip').setHTML(tip.toFixed(2));
+            Y.all('#total').setHTML(total.toFixed(2));
+        }
+        if(!node.get('checked')) {
             Y.all('#selected-total').setHTML(parseInt(Y.all('#selected-total').get('innerHTML')) - 10);
+            Y.all('#subtotal').setHTML(parseInt(Y.all('#selected-total').get('innerHTML')));
+            var tip = (parseInt(Y.all('#subtotal').get('innerHTML'))*parseInt(Y.all('#tip-percent').get('innerHTML')))/100;
+            var total = tip + parseInt(Y.all('#subtotal').get('innerHTML'));
+            Y.all('#tip').setHTML(tip.toFixed(2));
+            Y.all('#total').setHTML(total.toFixed(2));
+        }
     });
     
     // Plus button
