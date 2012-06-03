@@ -304,6 +304,18 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
             Y.all('#fries-remembered').hide();
         else
             Y.all('#fries-remembered').show();
+        if(ri.split('bigmac').length==1)
+            Y.all('#bigmac-remembered').hide();
+        else
+            Y.all('#bigmac-remembered').show();
+        if(ri.split('royale').length==1)
+            Y.all('#royale-remembered').hide();
+        else
+            Y.all('#royale-remembered').show();
+        if(ri.split('fries').length==1)
+            Y.all('#fries-remembered').hide();
+        else
+            Y.all('#fries-remembered').show();
     });
     
     // Example of clicking a Remember button, which lights up the 
