@@ -21,7 +21,7 @@ border-radius:15px;
 -moz-border-radius:15px; /* Firefox 3.6 and earlier */
 }
 .title {
-    width:60%;
+    width:45%;
     text-align:center;
     margin: 0px auto 0px auto;
     font-size:2em;
@@ -59,7 +59,7 @@ font-size:1em;
 }
 .back {
     position:absolute;
-    top:75px;
+    top:80px;
     left:10%;
 }
 .close-popup {
@@ -69,7 +69,7 @@ font-size:1em;
 }
 .top-buttons {
     position: absolute;
-    top: 75px;
+    top: 80px;
     right: 10%;
 }
 .lit-up {

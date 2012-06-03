@@ -8,7 +8,6 @@
 .details-right {
     float:right;
     column-count:1;
-    height:70%;
     text-align:left;
     font-size:.25em;
     width:60%;
@@ -17,10 +16,10 @@
 .details-left {
     float:left;
     column-count:1;
-    height:70%;
     text-align:left;
     font-size:.25em;
     width:40%;
+    overflow-x: hidden;
 }
 </style>
 
@@ -32,12 +31,16 @@
 
 <br/> <br/>
 
-<img src="fries.jpg" height="50px" class="alt-recommended-image"/>
+&#x2713 Vegan &#x2713 Gluten Free
 
 <br/> <br/>
 
-<button class="button" style="font-size:1em;" id="remember" name="fries">Remember</button>
-<button class="button" style="font-size:1em;" id="load-new-popup" name="onourway.html">Place Order</button>
+<button class="button" style="font-size:1em;" id="remember" name="fries">
+<img src="remembered.png" width="45px" height="45px"/>
+<br/>Remember</button>
+<button class="button" style="font-size:1em;" id="load-new-popup" name="onourway.html">
+<img src="waiter.png" width="45px" height="45px"  />
+<br/>Place Order</button>
 
 </div>
 
