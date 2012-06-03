@@ -152,7 +152,6 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     
     // Load new page
     Y.all('#load-new-page').on('click', function (e) {
-        alert('load');
         var node = e.currentTarget;
         // Set cache key LastLoadedPage to last page
         cache.add("LastLoadedPage", cache.retrieve("CurrentlyLoadedPage").response);
