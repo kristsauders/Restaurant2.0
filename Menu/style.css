@@ -24,8 +24,10 @@ border-radius:15px;
 .title {
     width:45%;
     text-align:center;
-    margin: 0px auto 0px auto;
+    margin: 4px auto 4px auto;
     font-size:2em;
+    color:white;
+    background-color:#336699;
 }
 .menu-bar {
     width:80%;
@@ -58,7 +60,7 @@ font-size:1em;
 	border-radius:25px;
 	-moz-border-radius:25px; /* Firefox 3.6 and earlier */
 	font-size:1.25em;
-	width:100%
+	width:100%;
 }
 .specials-button:hover {
     box-shadow: 5px 5px 5px gray;
