@@ -10,9 +10,8 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     
     // Clear cache during development only
     // cache.flush();    
-
-    Y.all('#menu-bar').hide();
     
+    // Function to append and hide each page as it loads
     function onLoad(id, o) {
         var data = o.responseText; // Response data.
         Y.one('body').append('<div style="visibility:hidden;position:absolute;top:110px;left:0px;'
@@ -22,6 +21,7 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     
     Y.on('io:complete', onLoad, Y);
     
+    // Load all pages and hide them
     var uri = "thanks-for-playing.html";
     var request = Y.io(uri, {sync:true});
     var uri = "thank-you.html";
@@ -74,50 +74,10 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
         
         if(node.get("name")=="tips.html") {
             Y.all('#back').show();
-        }        
-    });
-    
-    // Load new special
-    Y.all('#load-new-special').on('click', function (e) {
-        var node = e.currentTarget;
-        // Set cache key LastLoadedPagePayment to last page
-        cache.add("LastLoadedPagePayment", cache.retrieve("CurrentlyLoadedPagePayment").response);
-        // Set cache key CurrentlyLoadedPagePayment to new page
-        cache.add("CurrentlyLoadedPagePayment", node.get("name"));
-        // Load page
-        //Y.one('#content').load(node.get("name"), function() {});
-        document.getElementById(cache.retrieve("LastLoadedPagePayment").response).style.visibility = 'hidden';
-        document.getElementById(node.get("name")).style.visibility = 'visible';
-        
-        //Change Specials button to come back to this specific special
-        Y.all('#load-new-page').each(function(node) {
-                if(node.get('parentNode').get('id')=='menu-bar') {
-                    if(node.get("name").split("specials").length==1) {
-                        node.removeClass("lit-up");
-                    }
-                    if(node.get("name").split("specials").length>1) {
-                        node.setAttribute("name", e.currentTarget.get("name"));
-                    }
-                }
-            });
-        
-        // Manipulate menu and back button
-        if(cache.retrieve("CurrentlyLoadedPagePayment").response.split("details").length>1) {
-            Y.all('#menu-bar').hide();
+        }  
+        if(node.get("name")=="tips-all.html") {
             Y.all('#back').show();
-        }
-        if(cache.retrieve("CurrentlyLoadedPagePayment").response.split("details").length==1) {
-            Y.all('#back').hide();
-            Y.all('#menu-bar').show();
-        }
-        
-        // Light up clicked menu button, take dim the others
-        if(node.getAttribute("class")=="menu-item") {
-            Y.all('#load-new-page').each(function(node) {
-                node.removeClass("lit-up");
-            });
-            node.setAttribute("class", "menu-item lit-up");
-        }
+        }   
     });
     
     // Load last page (Back)
@@ -126,10 +86,9 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
         document.getElementById(cache.retrieve("CurrentlyLoadedPagePayment").response).style.visibility = 'hidden';
         document.getElementById(cache.retrieve("LastLoadedPagePayment").response).style.visibility = 'visible';
         cache.add("CurrentlyLoadedPagePayment", cache.retrieve("LastLoadedPagePayment").response);
-        cache.add("LastLoadedPagePayment", "specials-royale.html");
-        
-        Y.all('#back').hide();
-        
+        cache.add("LastLoadedPagePayment", "bill.html");
+        if(cache.retrieve("CurrentlyLoadedPagePayment").response=="bill.html")
+            Y.all('#back').hide();
     });
     
     // Close popup
@@ -202,6 +161,8 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     Y.all('#minus').on('click', function (e) {
         var node = e.currentTarget;
         Y.all('#tip-percent').setHTML(parseInt(Y.all('#tip-percent').get('innerHTML')) - 1);
+        if(parseInt(Y.all('#tip-percent').get('innerHTML'))<0)
+            Y.all('#tip-percent').setHTML(0);
         var tip = (parseInt(Y.all('#subtotal').get('innerHTML'))*parseInt(Y.all('#tip-percent').get('innerHTML')))/100;
         var total = tip + parseInt(Y.all('#subtotal').get('innerHTML'));
         Y.all('#tip').setHTML(tip.toFixed(2));
@@ -222,98 +183,11 @@ YUI().use("io-base", "cache-offline", "node", "transition", "node-load", "get", 
     Y.all('#minus-all').on('click', function (e) {
         var node = e.currentTarget;
         Y.all('#tip-percent-all').setHTML(parseInt(Y.all('#tip-percent-all').get('innerHTML')) - 1);
+        if(parseInt(Y.all('#tip-percent-all').get('innerHTML'))<0)
+            Y.all('#tip-percent-all').setHTML(0);
         var tip = (parseInt(Y.all('#subtotal-all').get('innerHTML'))*parseInt(Y.all('#tip-percent-all').get('innerHTML')))/100;
         var total = tip + parseInt(Y.all('#subtotal-all').get('innerHTML'));
         Y.all('#tip-all').setHTML(tip.toFixed(2));
         Y.all('#total-all').setHTML(total.toFixed(2));
-    });
-    
-    // Load Remembered list
-    Y.all('#remembered').on('click', function (e) {
-        //Y.one('#content').load('remembered.html');
-        Y.all('#menu-bar').show();
-        Y.all('#back').hide();
-        document.getElementById(cache.retrieve("CurrentlyLoadedPagePayment").response).style.visibility = 'hidden';
-        document.getElementById(e.currentTarget.get("name")).style.visibility = 'visible';
-        cache.add("LastLoadedPagePayment", cache.retrieve("CurrentlyLoadedPagePayment").response);
-        cache.add("CurrentlyLoadedPagePayment", "remembered.html");
-        var ri = cache.retrieve("RememberedItems");
-        if(ri==null)
-            ri = '';
-        else
-            ri = cache.retrieve("RememberedItems").response;
-        if(ri.split('bigmac').length==1)
-            Y.all('#bigmac-remembered').hide();
-        else
-            Y.all('#bigmac-remembered').show();
-        if(ri.split('royale').length==1)
-            Y.all('#royale-remembered').hide();
-        else
-            Y.all('#royale-remembered').show();
-        if(ri.split('fries').length==1)
-            Y.all('#fries-remembered').hide();
-        else
-            Y.all('#fries-remembered').show();
-    });
-    
-    // Example of clicking a Remember button, which lights up the 
-    // remembered button in the corner and adds the item's name to the RememberedItems key in the cache
-    Y.all('#remember').on('click', function(e) {
-        // Light up remembered button
-        var remembered = Y.one('#remembered');
-        remembered.setAttribute("class", "button lit-up");
-        e.currentTarget.setAttribute("class", "button lit-up");
-        
-        // Add key in cache that Remembered button is now lit up
-        cache.add("RememberedButtonLitUp", true);
-        
-        // Add this item to the cache, under key RememberedItems, it looks for a name attribute in the div clicked
-        var node = e.currentTarget;
-        var RememberedItems = cache.retrieve("RememberedItems");
-        if(RememberedItems==null) {
-            RememberedItems = node.get("name");
-            cache.add("RememberedItems", RememberedItems);
-        } else {
-            RememberedItems = RememberedItems.response;
-            if(RememberedItems.split(node.get("name")).length==1) RememberedItems = RememberedItems + "," + node.get("name");
-            cache.add("RememberedItems", RememberedItems);
-        }
-        
-    });
-    // Forget item
-    Y.all('#forget').on('click', function(e) {
-        var node = e.currentTarget;
-        var RememberedItems = cache.retrieve("RememberedItems");
-        if(RememberedItems!=null) {
-            RememberedItems = RememberedItems.response;
-            if(RememberedItems.split(node.get("name")).length>1) {
-                RememberedItems = RememberedItems.replace(node.get("name"), '').replace(',,', ',');
-                cache.add("RememberedItems", RememberedItems);
-            }
-        }
-        Y.all('#remember').each(function(n) {
-            if(n.get("name")==node.get("name")) {
-                n.setAttribute("class", "button");
-            }
-        });
-        if(RememberedItems.length<4)
-            Y.all('#remembered').setAttribute("class", "button");
-        var ri = cache.retrieve("RememberedItems");
-        if(ri==null)
-            ri = '';
-        else
-            ri = cache.retrieve("RememberedItems").response;
-        if(ri.split('bigmac').length==1)
-            Y.all('#bigmac-remembered').hide();
-        else
-            Y.all('#bigmac-remembered').show();
-        if(ri.split('royale').length==1)
-            Y.all('#royale-remembered').hide();
-        else
-            Y.all('#royale-remembered').show();
-        if(ri.split('fries').length==1)
-            Y.all('#fries-remembered').hide();
-        else
-            Y.all('#fries-remembered').show();
     });
 });
